@@ -1,4 +1,4 @@
-from django.text import TestCase
+from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 
@@ -17,9 +17,6 @@ def create_user(**params):
 
 class PublicUserApiTests(TestCase):
     """Test the users API (public)"""
-
-    def setUp(self):
-        self.client = APIClient()
 
     def test_create_valid_user_success(self):
         """Test creating user with valid payload is successful"""
@@ -106,6 +103,9 @@ class PublicUserApiTests(TestCase):
         res = self.client.get(ME_URL)
 
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def setUp(self):
+        self.client = APIClient()
 
 
 class PrivateUserApiTests(TestCase):
